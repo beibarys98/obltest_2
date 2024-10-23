@@ -160,7 +160,7 @@ $this->title = Yii::t('app', 'Қатысушылар');
                     'class' => ActionColumn::className(),
                     'template' => '{delete}',
                     'urlCreator' => function ($action, Teacher $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
+                        return Url::toRoute(['teacher/delete', 'id' => $model->id]);
                     }
                 ],
             ],
