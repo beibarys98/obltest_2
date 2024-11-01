@@ -17,7 +17,9 @@ use yii\bootstrap5\ActiveForm;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'placeholder' => 'Атауы'])->label(false) ?>
+    <?= $form->field($model, 'file')
+        ->input('file', ['class' => 'form-control'])
+        ->label(false) ?>
 
     <?php
     $subjectField = (Yii::$app->language === 'ru-RU') ? 'title_ru' : 'title';
@@ -40,11 +42,6 @@ use yii\bootstrap5\ActiveForm;
                 ],
             ])->label(false);
     ?>
-
-    <?= $form->field($model, 'file')
-        ->input('file', ['class' => 'form-control'])
-        ->label(false) ?>
-
 
     <?php
     $languages = [
@@ -75,7 +72,7 @@ use yii\bootstrap5\ActiveForm;
     <?= $form->field($model, 'duration')->input('time')->label(false);?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Сақтау'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Сақтау'), ['class' => 'btn btn-success w-100']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

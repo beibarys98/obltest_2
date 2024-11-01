@@ -12,10 +12,10 @@ $this->title = Yii::t('app', 'Тесттер');
 ?>
 <div class="test-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Жаңа тест'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Жаңа тест'), ['create'], ['class' => 'btn btn-success w-100']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -25,22 +25,17 @@ $this->title = Yii::t('app', 'Тесттер');
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => ['class' => 'table table-hover table-bordered'],
-        'rowOptions' => function($model) {
-            return [
-                'onclick' => 'window.location.href="' . Url::to(['view', 'id' => $model->id]) . '";',
-                'style' => 'cursor:pointer;',
-            ];
-        },
         'columns' => [
             'id',
             [
                 'attribute' => 'subject',
                 'label' => 'Пән',
-                'value' => 'subject.title'
-            ],
-            [
-                'attribute' => 'title',
-                'label' => 'Атауы',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a($model->subject->title, ['view', 'id' => $model->id], [
+                        'style' => 'display: block; width: 100%; height: 100%;',
+                    ]);
+                },
             ],
             [
                 'attribute' => 'language',

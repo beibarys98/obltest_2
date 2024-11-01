@@ -14,10 +14,10 @@ $this->title = Yii::t('app', 'Мұғалімдер');
 ?>
 <div class="teacher-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Жаңа мұғалім'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Жаңа мұғалім'), ['create'], ['class' => 'btn btn-success w-100']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -49,9 +49,11 @@ $this->title = Yii::t('app', 'Мұғалімдер');
                     'value' => 'subject.title'
             ],
             [
-                    'attribute' => 'test',
-                    'label' => 'Тест',
-                    'value' => 'test.title'
+                'attribute' => 'test',
+                'label' => 'Тест',
+                'value' => function ($model) {
+                    return $model->test->subject->title . '_' . $model->test->language . '_' . $model->test->version;
+                }
             ],
             [
                     'attribute' => 'language',

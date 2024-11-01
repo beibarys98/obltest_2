@@ -28,7 +28,7 @@ use yii\helpers\Html;
         <input id="name" type="text" value="<?= $purpose->cost ?>" class="w-100" disabled>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-1">
         <?php
         $form = ActiveForm::begin([
             'options' => ['enctype' => 'multipart/form-data'],

@@ -17,7 +17,7 @@ $this->title = $teacher->name;
 ?>
 <div class="site-signup">
 
-    <h1><?= $this->title ?></h1>
+    <h1 class="text-center"><?= $this->title ?></h1>
 
     <div>
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
@@ -51,7 +51,13 @@ $this->title = $teacher->name;
         ?>
 
         <?php
-        $tests = ArrayHelper::map(Test::find()->andWhere(['status' => 'public'])->all(), 'id', 'title');
+        $tests = ArrayHelper::map(
+            Test::find()->andWhere(['status' => ['public', 'finished', 'certificated']])->all(),
+            'id',
+            function ($model) {
+                return $model->subject->title . '_' . $model->language . '_' . $model->version;
+            }
+        );
         ?>
 
         <?=
@@ -102,7 +108,7 @@ $this->title = $teacher->name;
         <?= $form->field($teacher, 'password')->passwordInput(['placeholder' => 'Жаңа құпия сөз'])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Сақтау', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+            <?= Html::submitButton('Сақтау', ['class' => 'btn btn-success w-100', 'name' => 'signup-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

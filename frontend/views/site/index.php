@@ -10,15 +10,20 @@ use yii\helpers\Html;
 /** @var $isActive*/
 /** @var $hasPaid*/
 
-$this->title = $test->title;
+$title = $test->language === 'ru'
+    ? $test->subject->title_ru
+    : $test->subject->title;
+$this->title = $title;
+
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="test-view">
 
     <div class="mt-1" style="margin: 0 auto; width: 500px;">
 
         <div class="btn disabled w-100" style="font-size: 24px;">
-            <?= $test->title ?>
+            <?= $title ?>
         </div>
 
         <div class="mt-5">
@@ -47,7 +52,7 @@ $this->title = $test->title;
                 echo Html::a(
                     Yii::t('app', 'Оплатить'),
                     ['site/pay', 'id' => $test->id],
-                    ['class' => 'btn btn-primary '.$class]);
+                    ['class' => 'btn btn-primary w-100 '.$class]);
             }else{
                 $firstQuestion = Question::find()
                     ->where(['test_id' => $test->id])
@@ -60,7 +65,7 @@ $this->title = $test->title;
                     Yii::t('app', 'Начать'),
                     ['view', 'id' => $firstQuestionId], // Pass the first question's ID
                     [
-                        'class' => 'btn btn-success ' . $class,
+                        'class' => 'btn btn-success w-100 ' . $class,
                         'data' => [
                             'confirm' => Yii::t('app', 'Вы уверены?'),
                             'method' => 'post',

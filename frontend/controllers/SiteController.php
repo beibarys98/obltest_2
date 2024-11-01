@@ -12,6 +12,8 @@ use common\models\TeacherResult;
 use common\models\Test;
 use common\models\User;
 use kartik\mpdf\Pdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -127,7 +129,7 @@ class SiteController extends Controller
             'query' => File::find()
                 ->andWhere(['teacher_id' => $teacher->id])
                 ->andWhere(['test_id' => $test->id])
-                ->andWhere(['LIKE', 'path', '%\.jpeg', false])
+                ->andWhere(['type' => 'certificate'])
         ]);
 
         //is the test active? and was it paid?
@@ -168,8 +170,13 @@ class SiteController extends Controller
                 if (!is_dir($directoryPath)) {
                     mkdir($directoryPath, 0755, true);
                 }
+                $subjectTitle = str_replace(' ', '_', $teacher->test->subject->title);
+                $teacherName = str_replace(' ', '_', $teacher->name);
                 $filePath = $directoryPath . '/'
-                    . $teacher->name . '.'
+                    . $subjectTitle . '_'
+                    . $teacher->test->language . '_'
+                    . $teacher->test->version . '_'
+                    . $teacherName . '.'
                     . $payment->file->extension;
                 if ($payment->file->saveAs($filePath)) {
                     $payment->type = 'receipt';
@@ -295,52 +302,8 @@ class SiteController extends Controller
                 }
             }
         }
-        $result = new TeacherResult();
-        $result->teacher_id = $teacher->id;
-        $result->test_id = $test->id;
-        $result->value = $score;
-        $result->save(false);
-
-        //save report in pdf
-        $answers = TeacherAnswer::find()
-            ->andWhere(['teacher_id' => $teacher->id])
-            ->indexBy('question_id')
-            ->all();
-        $testDP = new ActiveDataProvider([
-            'query' => Test::find()
-                ->andWhere(['id' => $test->id]),
-        ]);
-        $resultDP = new ActiveDataProvider([
-            'query' => TeacherResult::find()
-                ->andWhere(['teacher_id' => $teacher->id])
-                ->andWhere(['test_id' => $test->id]),
-        ]);
-        $content2 = $this->renderPartial('report', [
-            'test' => $test,
-            'questions' => $questions,
-            'answers' => $answers,
-            'testDP' => $testDP,
-            'resultDP' => $resultDP,
-        ]);
-        $pdf2 = new Pdf([
-            'mode' => Pdf::MODE_UTF8,
-            'content' => $content2,
-            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
-            'cssInline' => '.kv-heading-1{font-size:18px}'
-        ]);
-        $pdf2Output = $pdf2->render();
-        $directoryPath = 'reports/' . $teacher->subject->title;
-        if (!is_dir($directoryPath)) {
-            mkdir($directoryPath, 0755, true);
-        }
-        $pdfFilePath2 = $directoryPath . '/'
-            . $teacher->name . '.pdf';
-        file_put_contents($pdfFilePath2, $pdf2Output);
-        $report = new File();
-        $report->teacher_id = $teacher->id;
-        $report->test_id = $id;
-        $report->path = $pdfFilePath2;
-        $report->save(false);
+        $teacher->result = $score;
+        $teacher->save(false);
 
         return $this->redirect(['/site/index']);
     }

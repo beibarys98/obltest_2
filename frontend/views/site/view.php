@@ -15,7 +15,11 @@ use yii\web\YiiAsset;
 /** @var $question*/
 /** @var $teacher*/
 
-$this->title = $test->title;
+$title = $test->language === 'ru'
+    ? $test->subject->title_ru
+    : $test->subject->title;
+$this->title = $title;
+
 YiiAsset::register($this);
 
 // Assuming $test->duration is in HH:MM:SS format

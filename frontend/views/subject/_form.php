@@ -16,7 +16,7 @@ use yii\bootstrap5\ActiveForm;
     <?= $form->field($model, 'title_ru')->textInput(['maxlength' => true, 'placeholder' => 'Название'])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Сақтау'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Сақтау'), ['class' => 'btn btn-success w-100']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

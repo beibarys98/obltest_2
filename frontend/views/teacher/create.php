@@ -16,7 +16,7 @@ $this->title = 'Жаңа мұғалім';
 ?>
 <div class="site-signup">
 
-    <h1><?= $this->title ?></h1>
+    <h1 class="text-center"><?= $this->title ?></h1>
 
     <div>
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
@@ -76,7 +76,7 @@ $this->title = 'Жаңа мұғалім';
         <?= $form->field($user, 'password')->passwordInput(['placeholder' => 'Құпия сөз'])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Сақтау', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+            <?= Html::submitButton('Сақтау', ['class' => 'btn btn-success w-100', 'name' => 'signup-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

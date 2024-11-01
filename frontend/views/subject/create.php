@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Жаңа пән');
 ?>
 <div class="subject-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

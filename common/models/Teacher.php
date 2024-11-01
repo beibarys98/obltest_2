@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $language
  * @property string|null $start_time
  * @property string|null $end_time
+ * @property int|null $result
  *
  * @property Subject $subject
  * @property Test $test
@@ -39,7 +40,7 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'name', 'school'], 'required'],
-            [['user_id', 'subject_id', 'test_id'], 'integer'],
+            [['user_id', 'subject_id', 'test_id', 'result'], 'integer'],
             [['start_time', 'end_time'], 'safe'],
             [['name', 'school'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 10],

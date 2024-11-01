@@ -39,10 +39,10 @@ class Test extends \yii\db\ActiveRecord
         return [
             [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'docx'],
 
-            [['title', 'subject_id', 'path', 'language', 'version', 'duration'], 'required'],
+            [['subject_id', 'path', 'language', 'version', 'duration'], 'required'],
             [['subject_id', 'version'], 'integer'],
             [['duration'], 'safe'],
-            [['title', 'path'], 'string', 'max' => 255],
+            [['path'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 10],
             [['status'], 'string', 'max' => 50],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subject::class, 'targetAttribute' => ['subject_id' => 'id']],

@@ -20,7 +20,7 @@ class TestSearch extends Test
     {
         return [
             [['id', 'subject_id', 'version'], 'integer'],
-            [['title', 'path', 'language', 'status', 'duration', 'subject'], 'safe'],
+            [['path', 'language', 'status', 'duration', 'subject'], 'safe'],
         ];
     }
 
@@ -54,10 +54,6 @@ class TestSearch extends Test
                 'attributes' => [
                     'id',
                     'subject',
-                    'title' => [
-                        'asc' => ['test.title' => SORT_ASC],
-                        'desc' => ['test.title' => SORT_DESC],
-                    ],
                     'language',
                     'version',
                     'status',
@@ -82,8 +78,7 @@ class TestSearch extends Test
             'duration' => $this->duration,
         ]);
 
-        $query->andFilterWhere(['like', 'test.title', $this->title])
-            ->andFilterWhere(['like', 'path', $this->path])
+        $query->andFilterWhere(['like', 'path', $this->path])
             ->andFilterWhere(['like', 'language', $this->language])
             ->andFilterWhere(['like', 'status', $this->status])
 

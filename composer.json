@@ -26,7 +26,9 @@
       "ext-zip": "*",
         "phpoffice/phpspreadsheet": "^3.3",
         "smalot/pdfparser": "^2.11",
-        "kartik-v/yii2-mpdf": "*"
+        "kartik-v/yii2-mpdf": "*",
+      "ext-libxml": "*",
+      "ext-gd": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

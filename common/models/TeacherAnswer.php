@@ -32,7 +32,7 @@ class TeacherAnswer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['teacher_id', 'question_id', 'answer_id'], 'required'],
+            [['teacher_id', 'question_id'], 'required'],
             [['teacher_id', 'question_id', 'answer_id'], 'integer'],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Teacher::class, 'targetAttribute' => ['teacher_id' => 'id']],
             [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::class, 'targetAttribute' => ['question_id' => 'id']],
